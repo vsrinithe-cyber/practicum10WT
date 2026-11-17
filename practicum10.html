@@ -1,0 +1,213 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bookhive - DOM Manipulation</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            text-align: center;
+            background-color: #f4f1ea;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #263c50;
+        }
+
+        h3 {
+            color: #42566b;
+        }
+
+        button {
+            background-color: #263c50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            margin: 5px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background-color: #52718c;
+        }
+
+        input, select {
+            padding: 10px;
+            margin: 5px;
+            border: 1px solid gray;
+            border-radius: 5px;
+        }
+
+        #tips {
+            color: #176b45;
+            font-weight: bold;
+        }
+
+        #result {
+            color: darkblue;
+            font-weight: bold;
+        }
+
+        /* Repeat Animation */
+        .book {
+            display: inline-block;
+            background-color: #dce6ef;
+            padding: 15px;
+            margin: 10px;
+            border-radius: 8px;
+            animation: moveBook 3s infinite;
+        }
+
+        /* Start from Initial Point */
+        @keyframes moveBook {
+            0% {
+                transform: translateX(0);
+            }
+            50% {
+                transform: translateX(30px);
+            }
+            100% {
+                transform: translateX(0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1 id="heading">Bookhive</h1>
+    <h3>Digital Library and Book Subscription Services</h3>
+
+    <h3>Featured Books</h3>
+
+    <div class="book">📘 Story Books</div>
+    <div class="book">📗 Science Books</div>
+    <div class="book">📙 Technology Books</div>
+
+    <h3>Reading Tips</h3>
+
+    <p id="tips">Click the button to see reading tips.</p>
+
+    <button onclick="showTip()">Show Tip</button>
+
+    <h3>Book Subscription Form</h3>
+
+    <input type="text" id="name" placeholder="Enter your name">
+
+    <input type="email" id="email" placeholder="Enter your email">
+
+    <select id="category">
+        <option value="">Select Book Category</option>
+        <option value="Story Books">Story Books</option>
+        <option value="Science Books">Science Books</option>
+        <option value="Technology Books">Technology Books</option>
+        <option value="Novels">Novels</option>
+    </select>
+
+    <select id="plan">
+        <option value="">Select Subscription Plan</option>
+        <option value="Monthly Plan">Monthly Plan</option>
+        <option value="Yearly Plan">Yearly Plan</option>
+    </select>
+
+    <button onclick="submitForm()">Subscribe</button>
+
+    <p id="result"></p>
+
+    <h3>Automatic Reading Tips</h3>
+
+    <button onclick="startTips()">Start Tips</button>
+    <button onclick="stopTips()">Stop Tips</button>
+
+    <h3>Welcome Message</h3>
+
+    <button onclick="showMessage()">Show Delayed Message</button>
+    <button onclick="cancelMessage()">Cancel Message</button>
+
+    <script>
+
+        // Query Selector
+        document.querySelector("#heading").innerHTML =
+            "Welcome to Bookhive!";
+
+        // onclick and DOM Manipulation
+        function showTip() {
+            document.getElementById("tips").innerHTML =
+                "Read at least a few pages every day.";
+        }
+
+        // Interactive Subscription Form
+        function submitForm() {
+
+            let name = document.getElementById("name").value;
+            let email = document.getElementById("email").value;
+            let category = document.getElementById("category").value;
+            let plan = document.getElementById("plan").value;
+
+            if (name == "" || email == "" ||
+                category == "" || plan == "") {
+
+                document.getElementById("result").innerHTML =
+                    "Please fill all the fields.";
+
+            } else {
+
+                document.getElementById("result").innerHTML =
+                    "Thank you " + name +
+                    "! Your " + category +
+                    " subscription is selected with " + plan + ".";
+            }
+        }
+
+        // setInterval and clearInterval
+        let interval;
+        let count = 0;
+
+        let readingTips = [
+            "Read books regularly.",
+            "Explore different book categories.",
+            "Make reading a daily habit.",
+            "Discover new authors on Bookhive."
+        ];
+
+        function startTips() {
+
+            clearInterval(interval);
+
+            interval = setInterval(function() {
+
+                document.getElementById("tips").innerHTML =
+                    readingTips[count];
+
+                count = (count + 1) % readingTips.length;
+
+            }, 3000);
+        }
+
+        function stopTips() {
+            clearInterval(interval);
+        }
+
+        // setTimeout and clearTimeout
+        let timeout;
+
+        function showMessage() {
+
+            timeout = setTimeout(function() {
+
+                alert("Thank you for visiting Bookhive!");
+
+            }, 3000);
+        }
+
+        function cancelMessage() {
+            clearTimeout(timeout);
+        }
+
+    </script>
+
+</body>
+</html>
